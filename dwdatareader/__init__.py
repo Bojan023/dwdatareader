@@ -553,9 +553,9 @@ class DWBinaryChannel(DWChannel):
         if status: raise DWError(status)
 
         bin_data = []
-        bin_buf = ctypes.create_string_buffer(1024)
-        bin_buf_pos = ctypes.c_longlong(0)
         for bin_rec in bin_samples:
+            bin_buf = ctypes.create_string_buffer(1024)
+            bin_buf_pos = ctypes.c_longlong(0)
             status = DLL.DWIGetBinData(
                 self.dwFile.reader_handle, self.index,
                 ctypes.byref(bin_rec), ctypes.byref(bin_buf),
