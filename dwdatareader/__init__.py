@@ -14,14 +14,14 @@ with dw.DWFile('myfile.d7d') as f:
 __all__ = ['get_version', 'open_file', 'DWError', 'DWFile']
 __version__ = '1.2.0'
 
+import atexit
 import ctypes
 import platform
-import atexit
 from datetime import datetime, timezone, timedelta
-from pathlib import Path
 from enum import IntEnum
-from xml.etree import ElementTree
+from pathlib import Path
 from typing import Any, Callable, List, Tuple, Optional
+from xml.etree import ElementTree
 
 import numpy as np
 import pandas as pd
