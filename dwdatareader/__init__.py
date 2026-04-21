@@ -567,7 +567,6 @@ class DWBinaryChannel(DWChannel):
         # Return as a Pandas DataFrame
         return pd.DataFrame({self.unique_key: bin_data}, index=np.array(timestamps))
 
-
 class DWComplexChannel(DWChannel):
     "Represents a complex data channel, providing methods to access its data."
 
@@ -604,7 +603,6 @@ class DWComplexChannel(DWChannel):
         )
         if status: raise DWError(status)
         return time, data
-
 
 class DWDataType(IntEnum):
     """Specifies the channel data type."""
@@ -937,7 +935,6 @@ class DWMeasurementInfo(ctypes.Structure):
     def start_measure_time(self):
         """Return start_store_time in Python datetime format"""
         return self.epoch + timedelta(self._start_measure_time)
-
 
 class DWStatus(IntEnum):
     """Status codes returned from library function calls"""
