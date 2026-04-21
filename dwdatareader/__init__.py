@@ -847,7 +847,10 @@ class DWFile(dict):
                 data = {'type': event_type, 'text': event_text},
                 index = time_stamp)
 
-    def _build_dataframe(self, channels: List = []) -> pd.DataFrame:
+    def _build_dataframe(self, channels: List = None) -> pd.DataFrame:
+        if channels is None:
+            channels = []
+
         if not channels:
             return pd.DataFrame()
 
@@ -860,8 +863,12 @@ class DWFile(dict):
                 df = df.drop(columns=['key_0'])
         return df
 
-    def _assemble_channels(self, channels: List[str], ignore_channels: List[str] = [], ch_type: Optional[DWChannelType] = None) -> List[str]:
+    def _assemble_channels(self, channels: List[str], ignore_channels: List[str] = None,
+                           ch_type: Optional[DWChannelType] = None) -> List[str]:
         """Filter channels according to optional criteria"""
+        if channels is None:
+            channels = []
+
         if not channels:
             # Return dataframe of all channels by default
             channels = list(self.keys())
@@ -873,15 +880,33 @@ class DWFile(dict):
 
         return channels
 
-    def dataframe(self, channels: List[str] = [], ignore_channels: List[str] = []) -> pd.DataFrame:
+    def dataframe(self, channels: List[str] = None, ignore_channels: List[str] = None) -> pd.DataFrame:
+        if channels is None:
+            channels = []
+
+        if ignore_channels is None:
+            ignore_channels = []
+
         channels = self._assemble_channels(channels, ignore_channels)
         return self._build_dataframe(channels)
 
-    def sync_dataframe(self, channels: List[str] = [], ignore_channels: List[str] = []) -> pd.DataFrame:
+    def sync_dataframe(self, channels: List[str] = None, ignore_channels: List[str] = None) -> pd.DataFrame:
+        if channels is None:
+            channels = []
+
+        if ignore_channels is None:
+            ignore_channels = []
+
         channels = self._assemble_channels(channels, ignore_channels, DWChannelType.DW_CH_TYPE_SYNC)
         return self._build_dataframe(channels)
 
-    def async_dataframe(self, channels: List[str] = [], ignore_channels: List[str] = []) -> pd.DataFrame:
+    def async_dataframe(self, channels: List[str] = None, ignore_channels: List[str] = None) -> pd.DataFrame:
+        if channels is None:
+            channels = []
+
+        if ignore_channels is None:
+            ignore_channels = []
+
         channels = self._assemble_channels(channels, ignore_channels, DWChannelType.DW_CH_TYPE_ASYNC)
         return self._build_dataframe(channels)
 
